@@ -2,7 +2,7 @@
   "name": "awscdk-construct-mediaconnect-flow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/miyazaqui/awscdk-construct-mediaconnect-flow.git"
+    "url": "https://github.com/kuu/awscdk-construct-mediaconnect-flow.git"
   },
   "scripts": {
     "build": "npx projen build",
