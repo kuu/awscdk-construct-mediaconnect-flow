@@ -9,13 +9,13 @@ import { MediaLive, startChannel } from 'awscdk-construct-medialive-channel';
 import { Construct } from 'constructs';
 
 export interface FileSpec {
-  type?: 'MP4_FILE' | 'TS_FILE'; // Type of the input file
-  url: string; // S3 URL of the input file
+  readonly type?: 'MP4_FILE' | 'TS_FILE'; // Type of the input file
+  readonly url: string; // S3 URL of the input file
 }
 
 export interface LiveSourceSpec {
-  protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
-  type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
+  readonly protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
+  readonly type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
 }
 
 export interface VpcConfig {
