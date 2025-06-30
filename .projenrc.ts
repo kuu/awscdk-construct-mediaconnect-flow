@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '~5.8.9',
   name: 'awscdk-construct-mediaconnect-flow',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/miyazaqui/awscdk-construct-mediaconnect-flow.git',
+  repositoryUrl: 'https://github.com/kuu/awscdk-construct-mediaconnect-flow.git',
   keywords: [
     'cdk',
     'cdk-construct',
