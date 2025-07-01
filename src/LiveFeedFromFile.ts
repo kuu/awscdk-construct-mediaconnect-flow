@@ -101,6 +101,11 @@ export class LiveFeedFromFile extends Construct {
         }],
         ndiState: 'ENABLED',
       };
+      sg && sg.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcpRange(5961, 65535),
+        description,
+      );
     }
 
     // Create a secret
