@@ -139,6 +139,78 @@ public readonly vpc: IVpc;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### EncoderSettings <a name="EncoderSettings" id="awscdk-construct-mediaconnect-flow.EncoderSettings"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-mediaconnect-flow.EncoderSettings.Initializer"></a>
+
+```typescript
+import { EncoderSettings } from 'awscdk-construct-mediaconnect-flow'
+
+const encoderSettings: EncoderSettings = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateDenominator">framerateDenominator</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateNumerator">framerateNumerator</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.scanType">scanType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `framerateDenominator`<sup>Optional</sup> <a name="framerateDenominator" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateDenominator"></a>
+
+```typescript
+public readonly framerateDenominator: number;
+```
+
+- *Type:* number
+
+---
+
+##### `framerateNumerator`<sup>Optional</sup> <a name="framerateNumerator" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateNumerator"></a>
+
+```typescript
+public readonly framerateNumerator: number;
+```
+
+- *Type:* number
+
+---
+
+##### `gopLengthInSeconds`<sup>Optional</sup> <a name="gopLengthInSeconds" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.gopLengthInSeconds"></a>
+
+```typescript
+public readonly gopLengthInSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `scanType`<sup>Optional</sup> <a name="scanType" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.scanType"></a>
+
+```typescript
+public readonly scanType: string;
+```
+
+- *Type:* string
+
+---
+
+##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.timecodeBurninPrefix"></a>
+
+```typescript
+public readonly timecodeBurninPrefix: string;
+```
+
+- *Type:* string
+
+---
+
 ### FileSpec <a name="FileSpec" id="awscdk-construct-mediaconnect-flow.FileSpec"></a>
 
 #### Initializer <a name="Initializer" id="awscdk-construct-mediaconnect-flow.FileSpec.Initializer"></a>
@@ -194,6 +266,7 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file">file</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpcConfig">vpcConfig</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a></code> | *No description.* |
 
@@ -216,6 +289,16 @@ public readonly autoStart: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `encoderSpec`<sup>Optional</sup> <a name="encoderSpec" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec"></a>
+
+```typescript
+public readonly encoderSpec: EncoderSettings;
+```
+
+- *Type:* <a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a>
 
 ---
 

@@ -25,8 +25,17 @@ export interface VpcConfig {
   readonly enableNDI?: boolean; // Settings for NDI output
 }
 
+export interface EncoderSettings {
+  readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
+  readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+  readonly framerateNumerator?: number; // The numerator for the framerate.
+  readonly framerateDenominator?: number; // The denominator for the framerate.
+  readonly scanType?: 'PROGRESSIVE' | 'INTERLACED'; // The scan type.
+}
+
 export interface LiveFeedFromFileProps {
   readonly file: FileSpec; // File specification
+  readonly encoderSpec?: EncoderSettings; // Optional encoder settings for MediaLive
   readonly source?: LiveSourceSpec; // Optional live source specification
   readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
   readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
@@ -45,6 +54,13 @@ export class LiveFeedFromFile extends Construct {
 
     const {
       file,
+      encoderSpec = {
+        gopLengthInSeconds: 2,
+        timecodeBurninPrefix: 'Ch',
+        framerateNumerator: 30000,
+        framerateDenominator: 1001,
+        scanType: 'PROGRESSIVE',
+      },
       source = {
         protocol: 'SRT',
         type: 'STANDARD-SOURCE',
@@ -210,8 +226,11 @@ export class LiveFeedFromFile extends Construct {
             },
           },
         }],
-        gopLengthInSeconds: 2, // The length of the GOP in seconds.
-        timecodeBurninPrefix: 'Ch', // The prefix for the timecode burn-in.
+        gopLengthInSeconds: encoderSpec.gopLengthInSeconds ?? 2,
+        timecodeBurninPrefix: encoderSpec.timecodeBurninPrefix,
+        framerateNumerator: encoderSpec.framerateNumerator,
+        framerateDenominator: encoderSpec.framerateDenominator,
+        scanType: encoderSpec.scanType,
       },
       vpc: source.type === 'VPC-SOURCE' && vpc ? {
         publicAddressAllocationIds: [eip!.attrAllocationId],
