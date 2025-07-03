@@ -2,9 +2,9 @@ import { awscdk } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Kuu Miyazaki',
   authorAddress: 'miyazaqui@gmail.com',
-  cdkVersion: '2.202.0',
+  cdkVersion: '2.203.1',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.8.9',
+  jsiiVersion: '~5.8.10',
   name: 'awscdk-construct-mediaconnect-flow',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/kuu/awscdk-construct-mediaconnect-flow.git',
