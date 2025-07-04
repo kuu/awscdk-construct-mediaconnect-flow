@@ -31,6 +31,8 @@ export interface EncoderSettings {
   readonly framerateNumerator?: number; // The numerator for the framerate.
   readonly framerateDenominator?: number; // The denominator for the framerate.
   readonly scanType?: 'PROGRESSIVE' | 'INTERLACED'; // The scan type.
+  readonly width?: number; // The width of the video.
+  readonly height?: number; // The height of the video.
 }
 
 export interface LiveFeedFromFileProps {
@@ -57,9 +59,11 @@ export class LiveFeedFromFile extends Construct {
       encoderSpec = {
         gopLengthInSeconds: 2,
         timecodeBurninPrefix: 'Ch',
-        framerateNumerator: 30000,
-        framerateDenominator: 1001,
+        framerateNumerator: 30,
+        framerateDenominator: 1,
         scanType: 'PROGRESSIVE',
+        width: 1920,
+        height: 1080,
       },
       source = {
         protocol: 'SRT',
@@ -231,6 +235,8 @@ export class LiveFeedFromFile extends Construct {
         framerateNumerator: encoderSpec.framerateNumerator,
         framerateDenominator: encoderSpec.framerateDenominator,
         scanType: encoderSpec.scanType,
+        width: encoderSpec.width,
+        height: encoderSpec.height,
       },
       vpc: source.type === 'VPC-SOURCE' && vpc ? {
         publicAddressAllocationIds: [eip!.attrAllocationId],

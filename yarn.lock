@@ -988,7 +988,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.5.tgz#ec10755e871497bcd83efe927e43ec46e8c0747e"
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
-"@types/node@*", "@types/node@^24.0.8":
+"@types/node@*", "@types/node@^24.0.10":
   version "24.0.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-24.0.10.tgz#f65a169779bf0d70203183a1890be7bee8ca2ddb"
   integrity sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==
@@ -1472,10 +1472,10 @@ aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.203.1:
     table "^6.9.0"
     yaml "1.10.2"
 
-awscdk-construct-medialive-channel@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.8.tgz#c54814294de3844daa4c97eddaa1c9e8b542a2bd"
-  integrity sha512-PlJjqxh4fjmMrdMaiE8fo1vOOUm7vbRejv8kS52OPyxMasPyGrDPczhnMxcuGacKd7KtDoxBSlQjmoH2dOstIA==
+awscdk-construct-medialive-channel@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.9.tgz#bfdaaadf811ffd574af28dd8ca7c11fcccfe1b93"
+  integrity sha512-+hXMslKqyJnNAAY69zm2rhBiQBP/fybl6V+Rgtkpir29xXJDKJuZB2AlGgK9YAIjEkp2hlCe0sJL4m72ioS9Vg==
   dependencies:
     aws-cdk-lib "^2.201.0"
     constructs "^10.4.2"
@@ -3844,7 +3844,7 @@ jest-worker@30.0.2:
     merge-stream "^2.0.0"
     supports-color "^8.1.1"
 
-jest@^30.0.3:
+jest@^30.0.4:
   version "30.0.4"
   resolved "https://registry.yarnpkg.com/jest/-/jest-30.0.4.tgz#4596879f2af0560d9b1e588b252531cf10148947"
   integrity sha512-9QE0RS4WwTj/TtTC4h/eFVmFAhGNVerSB9XpJh8sqaXlP73ILcPcZ7JWjjEtJJe2m8QyBLKKfPQuK+3F+Xij/g==
