@@ -156,8 +156,10 @@ const encoderSettings: EncoderSettings = { ... }
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateDenominator">framerateDenominator</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateNumerator">framerateNumerator</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.height">height</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.scanType">scanType</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.width">width</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -191,6 +193,16 @@ public readonly gopLengthInSeconds: number;
 
 ---
 
+##### `height`<sup>Optional</sup> <a name="height" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.height"></a>
+
+```typescript
+public readonly height: number;
+```
+
+- *Type:* number
+
+---
+
 ##### `scanType`<sup>Optional</sup> <a name="scanType" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.scanType"></a>
 
 ```typescript
@@ -208,6 +220,16 @@ public readonly timecodeBurninPrefix: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `width`<sup>Optional</sup> <a name="width" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.width"></a>
+
+```typescript
+public readonly width: number;
+```
+
+- *Type:* number
 
 ---
 
