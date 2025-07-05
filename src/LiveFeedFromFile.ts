@@ -50,6 +50,7 @@ const VPC_INTERFACE_NAME = 'vpcInterfaceName';
 export class LiveFeedFromFile extends Construct {
   public readonly flow: CfnFlow;
   public readonly vpc?: ec2.IVpc;
+  public readonly ndiDiscoveryServer?: ec2.Instance;
 
   constructor(scope: Construct, id: string, props: LiveFeedFromFileProps) {
     super(scope, id);
@@ -126,6 +127,7 @@ export class LiveFeedFromFile extends Construct {
         ec2.Port.tcpRange(5961, 65535),
         description,
       );
+      this.ndiDiscoveryServer = instance;
     }
 
     // Create a secret
