@@ -100,6 +100,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFile.property.flow">flow</a></code> | <code>aws-cdk-lib.aws_mediaconnect.CfnFlow</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFile.property.ndiDiscoveryServer">ndiDiscoveryServer</a></code> | <code>aws-cdk-lib.aws_ec2.Instance</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFile.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 
 ---
@@ -123,6 +124,16 @@ public readonly flow: CfnFlow;
 ```
 
 - *Type:* aws-cdk-lib.aws_mediaconnect.CfnFlow
+
+---
+
+##### `ndiDiscoveryServer`<sup>Optional</sup> <a name="ndiDiscoveryServer" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFile.property.ndiDiscoveryServer"></a>
+
+```typescript
+public readonly ndiDiscoveryServer: Instance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Instance
 
 ---
 
