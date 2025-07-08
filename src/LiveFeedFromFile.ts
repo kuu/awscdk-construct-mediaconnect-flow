@@ -74,6 +74,11 @@ export class LiveFeedFromFile extends Construct {
       autoStart = true,
     } = props;
 
+    // Throw exception if vpcConfig is not specified when the source type is VPC-SOURCE
+    if (source.type === 'VPC-SOURCE' && !vpcConfig) {
+      throw new Error('VpcConfig is required when source type is VPC-SOURCE');
+    }
+
     const uuid = `${crypto.randomUUID()}`;
     const protocol = (() => {
       switch (source.protocol) {
