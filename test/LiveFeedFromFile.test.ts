@@ -1,9 +1,155 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import { LiveFeedFromFile } from '../src';
+import { LiveFeed, LiveFeedFromFile } from '../src';
 
 test('Standard source + Standard output', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'STANDARD-SOURCE',
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::EC2::VPC', 0);
+  template.resourceCountIs('AWS::EC2::Instance', 0);
+});
+
+test('Standard source + VPC output', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'STANDARD-SOURCE',
+    },
+    vpcConfig: {
+      props: {
+        ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+        flowLogs: {
+          'video-flow-logs': {
+            destination: ec2.FlowLogDestination.toCloudWatchLogs(),
+          },
+        },
+      },
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 0);
+});
+
+test('Standard source + VPC output with NDI', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'STANDARD-SOURCE',
+    },
+    vpcConfig: {
+      props: {
+        ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+        flowLogs: {
+          'video-flow-logs': {
+            destination: ec2.FlowLogDestination.toCloudWatchLogs(),
+          },
+        },
+      },
+      enableNDI: true,
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 1);
+});
+
+test('VPC source + Standard output', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  expect(() => {
+    new LiveFeed(stack, 'LiveFeed', {
+      source: {
+        protocol: 'SRT',
+        type: 'VPC-SOURCE',
+      },
+    });
+  }).toThrow('VpcConfig is required when source type is VPC-SOURCE');
+});
+
+test('VPC source + VPC output', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'VPC-SOURCE',
+    },
+    vpcConfig: {
+      props: {
+        ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+        flowLogs: {
+          'video-flow-logs': {
+            destination: ec2.FlowLogDestination.toCloudWatchLogs(),
+          },
+        },
+      },
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 0);
+});
+
+test('VPC source + VPC output with NDI', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'VPC-SOURCE',
+    },
+    vpcConfig: {
+      props: {
+        ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+        flowLogs: {
+          'video-flow-logs': {
+            destination: ec2.FlowLogDestination.toCloudWatchLogs(),
+          },
+        },
+      },
+      enableNDI: true,
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::EC2::VPC', 1);
+  template.resourceCountIs('AWS::EC2::Instance', 1);
+});
+
+test('Standard source + Standard output with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
@@ -27,7 +173,7 @@ test('Standard source + Standard output', () => {
   template.resourceCountIs('AWS::EC2::Instance', 0);
 });
 
-test('Standard source + VPC output', () => {
+test('Standard source + VPC output with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
@@ -61,7 +207,7 @@ test('Standard source + VPC output', () => {
   template.resourceCountIs('AWS::EC2::Instance', 0);
 });
 
-test('Standard source + VPC output with NDI', () => {
+test('Standard source + VPC output with NDI with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
@@ -96,7 +242,7 @@ test('Standard source + VPC output with NDI', () => {
   template.resourceCountIs('AWS::EC2::Instance', 1);
 });
 
-test('VPC source + Standard output', () => {
+test('VPC source + Standard output with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
@@ -114,7 +260,7 @@ test('VPC source + Standard output', () => {
   }).toThrow('VpcConfig is required when source type is VPC-SOURCE');
 });
 
-test('VPC source + VPC output', () => {
+test('VPC source + VPC output with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
@@ -148,7 +294,7 @@ test('VPC source + VPC output', () => {
   template.resourceCountIs('AWS::EC2::Instance', 0);
 });
 
-test('VPC source + VPC output with NDI', () => {
+test('VPC source + VPC output with NDI with file', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
