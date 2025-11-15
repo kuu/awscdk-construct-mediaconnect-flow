@@ -64,7 +64,7 @@ export class LiveFeedFromFile extends Construct {
     } = props;
 
     // Throw exception if vpcConfig is not specified when the source type is VPC-SOURCE
-    if (source.type === 'VPC-SOURCE' && !vpcConfig) {
+    if (source.type === 'VPC-SOURCE' && !predifinedVpc && !vpcConfig) {
       throw new Error('VpcConfig is required when source type is VPC-SOURCE');
     }
 
