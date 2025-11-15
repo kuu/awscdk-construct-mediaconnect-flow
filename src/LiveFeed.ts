@@ -6,21 +6,13 @@ import { CfnFlow } from 'aws-cdk-lib/aws-mediaconnect';
 import * as asm from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
 import {
-  LiveSourceSpec,
-  VpcConfig,
+  LiveFeedProps,
   SOURCE_INGEST_PORT,
   DISCOVERY_SERVER_PORT,
   VPC_INTERFACE_NAME,
   createNdiDiscoveryServer,
   startFlow,
 } from './util';
-
-
-export interface LiveFeedProps {
-  readonly source?: LiveSourceSpec; // Optional live source specification
-  readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
-  readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
-}
 
 export class LiveFeed extends Construct {
   public readonly flow: CfnFlow;
@@ -35,6 +27,7 @@ export class LiveFeed extends Construct {
         protocol: 'SRT',
         type: 'STANDARD-SOURCE',
       },
+      vpc: predifinedVpc,
       vpcConfig,
       autoStart = true,
     } = props;
@@ -58,7 +51,7 @@ export class LiveFeed extends Construct {
     })();
 
     // Create a VPC
-    const vpc = vpcConfig ? new ec2.Vpc(this, 'VPC', vpcConfig.props) : undefined;
+    const vpc = predifinedVpc ?? (vpcConfig ? new ec2.Vpc(this, 'VPC', vpcConfig.props) : undefined);
     vpc && vpc.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
     // Create a security group to allow push input

@@ -4,6 +4,13 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
+export interface LiveFeedProps {
+  readonly source?: LiveSourceSpec; // Optional live source specification
+  readonly vpc?: ec2.IVpc; // Predifined VPC. If not provided, a new VPC will be created when the source type is VPC-SOURCE.
+  readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
+  readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
+}
+
 export interface LiveSourceSpec {
   readonly protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
   readonly type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
