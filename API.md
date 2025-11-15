@@ -443,21 +443,12 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file">file</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpcConfig">vpcConfig</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a></code> | *No description.* |
-
----
-
-##### `file`<sup>Required</sup> <a name="file" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file"></a>
-
-```typescript
-public readonly file: FileSpec;
-```
-
-- *Type:* <a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a>
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file">file</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a></code> | *No description.* |
 
 ---
 
@@ -471,16 +462,6 @@ public readonly autoStart: boolean;
 
 ---
 
-##### `encoderSpec`<sup>Optional</sup> <a name="encoderSpec" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec"></a>
-
-```typescript
-public readonly encoderSpec: EncoderSettings;
-```
-
-- *Type:* <a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a>
-
----
-
 ##### `source`<sup>Optional</sup> <a name="source" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source"></a>
 
 ```typescript
@@ -491,6 +472,16 @@ public readonly source: LiveSourceSpec;
 
 ---
 
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ##### `vpcConfig`<sup>Optional</sup> <a name="vpcConfig" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpcConfig"></a>
 
 ```typescript
@@ -498,6 +489,26 @@ public readonly vpcConfig: VpcConfig;
 ```
 
 - *Type:* <a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a>
+
+---
+
+##### `file`<sup>Required</sup> <a name="file" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file"></a>
+
+```typescript
+public readonly file: FileSpec;
+```
+
+- *Type:* <a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a>
+
+---
+
+##### `encoderSpec`<sup>Optional</sup> <a name="encoderSpec" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.encoderSpec"></a>
+
+```typescript
+public readonly encoderSpec: EncoderSettings;
+```
+
+- *Type:* <a href="#awscdk-construct-mediaconnect-flow.EncoderSettings">EncoderSettings</a>
 
 ---
 
@@ -517,6 +528,7 @@ const liveFeedProps: LiveFeedProps = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.vpcConfig">vpcConfig</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a></code> | *No description.* |
 
 ---
@@ -538,6 +550,16 @@ public readonly source: LiveSourceSpec;
 ```
 
 - *Type:* <a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a>
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 ---
 
