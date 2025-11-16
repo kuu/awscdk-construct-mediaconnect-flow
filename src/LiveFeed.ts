@@ -26,7 +26,7 @@ export interface LiveSourceSpec {
 }
 
 export interface VpcConfig {
-  readonly props: ec2.VpcProps;
+  readonly props?: ec2.VpcProps;
   readonly availabilityZone?: string;
   readonly subnetId?: string;
   readonly enableNDI?: boolean; // Settings for NDI output
