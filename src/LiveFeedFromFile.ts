@@ -43,6 +43,7 @@ export class LiveFeedFromFile extends LiveFeed {
         type: 'STANDARD-SOURCE',
       },
       autoStart = true,
+      vpcConfig,
     } = props;
 
     // Create MediaLive channel
@@ -84,7 +85,7 @@ export class LiveFeedFromFile extends LiveFeed {
         height: encoderSpec.height,
       },
       vpc: source.type === 'VPC-SOURCE' && this.vpc ? {
-        subnetIds: [this.vpc.privateSubnets[0].subnetId],
+        subnetIds: [vpcConfig?.subnetId ?? this.vpc.privateSubnets[0].subnetId],
         securityGroupIds: (this.flow.vpcInterfaces as CfnFlow.VpcInterfaceProperty[])[0].securityGroupIds,
       } : undefined,
       secret: this.secret,
