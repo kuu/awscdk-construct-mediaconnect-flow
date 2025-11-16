@@ -731,20 +731,10 @@ const vpcConfig: VpcConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig.property.props">props</a></code> | <code>aws-cdk-lib.aws_ec2.VpcProps</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig.property.availabilityZone">availabilityZone</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig.property.enableNDI">enableNDI</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig.property.props">props</a></code> | <code>aws-cdk-lib.aws_ec2.VpcProps</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig.property.subnetId">subnetId</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `props`<sup>Required</sup> <a name="props" id="awscdk-construct-mediaconnect-flow.VpcConfig.property.props"></a>
-
-```typescript
-public readonly props: VpcProps;
-```
-
-- *Type:* aws-cdk-lib.aws_ec2.VpcProps
 
 ---
 
@@ -765,6 +755,16 @@ public readonly enableNDI: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="awscdk-construct-mediaconnect-flow.VpcConfig.property.props"></a>
+
+```typescript
+public readonly props: VpcProps;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.VpcProps
 
 ---
 
