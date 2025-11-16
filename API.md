@@ -444,7 +444,9 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sourceIngestPort">sourceIngestPort</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.vpcConfig">vpcConfig</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.file">file</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.FileSpec">FileSpec</a></code> | *No description.* |
@@ -462,6 +464,16 @@ public readonly autoStart: boolean;
 
 ---
 
+##### `sg`<sup>Optional</sup> <a name="sg" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sg"></a>
+
+```typescript
+public readonly sg: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+
+---
+
 ##### `source`<sup>Optional</sup> <a name="source" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source"></a>
 
 ```typescript
@@ -469,6 +481,16 @@ public readonly source: LiveSourceSpec;
 ```
 
 - *Type:* <a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a>
+
+---
+
+##### `sourceIngestPort`<sup>Optional</sup> <a name="sourceIngestPort" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sourceIngestPort"></a>
+
+```typescript
+public readonly sourceIngestPort: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -527,7 +549,9 @@ const liveFeedProps: LiveFeedProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sourceIngestPort">sourceIngestPort</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.vpcConfig">vpcConfig</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.VpcConfig">VpcConfig</a></code> | *No description.* |
 
@@ -543,6 +567,16 @@ public readonly autoStart: boolean;
 
 ---
 
+##### `sg`<sup>Optional</sup> <a name="sg" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sg"></a>
+
+```typescript
+public readonly sg: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+
+---
+
 ##### `source`<sup>Optional</sup> <a name="source" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.source"></a>
 
 ```typescript
@@ -550,6 +584,16 @@ public readonly source: LiveSourceSpec;
 ```
 
 - *Type:* <a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a>
+
+---
+
+##### `sourceIngestPort`<sup>Optional</sup> <a name="sourceIngestPort" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sourceIngestPort"></a>
+
+```typescript
+public readonly sourceIngestPort: number;
+```
+
+- *Type:* number
 
 ---
 

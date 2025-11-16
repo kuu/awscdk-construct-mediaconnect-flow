@@ -4,30 +4,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
-export interface LiveFeedProps {
-  readonly source?: LiveSourceSpec; // Optional live source specification
-  readonly vpc?: ec2.IVpc; // Predifined VPC. If not provided, a new VPC will be created when the source type is VPC-SOURCE.
-  readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
-  readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
-}
-
-export interface LiveSourceSpec {
-  readonly protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
-  readonly type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
-}
-
-export interface VpcConfig {
-  readonly props: ec2.VpcProps;
-  readonly availabilityZone?: string;
-  readonly subnetId?: string;
-  readonly enableNDI?: boolean; // Settings for NDI output
-}
-
-export const SOURCE_INGEST_PORT = 5000;
-export const DISCOVERY_SERVER_PORT = 5959;
-export const VPC_INTERFACE_NAME = 'vpcInterfaceName';
-
-export function createNdiDiscoveryServer(scope: Construct, vpc: ec2.IVpc): ec2.Instance {
+export function createNdiDiscoveryServer(scope: Construct, vpc: ec2.IVpc, discoveryServerPort = 5959): ec2.Instance {
   const description = 'Allow NDI Discovery Service';
   const sg = new ec2.SecurityGroup(scope, 'NDISecurityGroup', {
     vpc,
@@ -37,7 +14,7 @@ export function createNdiDiscoveryServer(scope: Construct, vpc: ec2.IVpc): ec2.I
   sg.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
   sg.addIngressRule(
     ec2.Peer.anyIpv4(),
-    ec2.Port.tcp(DISCOVERY_SERVER_PORT),
+    ec2.Port.tcp(discoveryServerPort),
     description,
   );
   const instance = new ec2.Instance(scope, 'Instance', {
