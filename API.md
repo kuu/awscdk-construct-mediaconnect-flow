@@ -444,6 +444,7 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.secretParams">secretParams</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sourceIngestPort">sourceIngestPort</a></code> | <code>number</code> | *No description.* |
@@ -461,6 +462,16 @@ public readonly autoStart: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `secretParams`<sup>Optional</sup> <a name="secretParams" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.secretParams"></a>
+
+```typescript
+public readonly secretParams: SecretParams;
+```
+
+- *Type:* <a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a>
 
 ---
 
@@ -549,6 +560,7 @@ const liveFeedProps: LiveFeedProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.secretParams">secretParams</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sourceIngestPort">sourceIngestPort</a></code> | <code>number</code> | *No description.* |
@@ -564,6 +576,16 @@ public readonly autoStart: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `secretParams`<sup>Optional</sup> <a name="secretParams" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.secretParams"></a>
+
+```typescript
+public readonly secretParams: SecretParams;
+```
+
+- *Type:* <a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a>
 
 ---
 
@@ -653,6 +675,45 @@ public readonly type: string;
 ```
 
 - *Type:* string
+
+---
+
+### SecretParams <a name="SecretParams" id="awscdk-construct-mediaconnect-flow.SecretParams"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-mediaconnect-flow.SecretParams.Initializer"></a>
+
+```typescript
+import { SecretParams } from 'awscdk-construct-mediaconnect-flow'
+
+const secretParams: SecretParams = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams.property.secret">secret</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | *No description.* |
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="awscdk-construct-mediaconnect-flow.SecretParams.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+##### `secret`<sup>Required</sup> <a name="secret" id="awscdk-construct-mediaconnect-flow.SecretParams.property.secret"></a>
+
+```typescript
+public readonly secret: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
 
 ---
 
