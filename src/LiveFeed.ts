@@ -17,6 +17,7 @@ export interface LiveFeedProps {
   readonly sg?: ec2.ISecurityGroup; // Optional security group for VPC source interface
   readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
   readonly sourceIngestPort?: number; // Source ingest port (default: 5000)
+  readonly secretParams?: SecretParams; // Optional secret parameters for accessing the source password
 }
 
 export interface LiveSourceSpec {
@@ -29,6 +30,11 @@ export interface VpcConfig {
   readonly availabilityZone?: string;
   readonly subnetId?: string;
   readonly enableNDI?: boolean; // Settings for NDI output
+}
+
+export interface SecretParams {
+  readonly secret: asm.ISecret;
+  readonly role: iam.IRole;
 }
 
 export const DISCOVERY_SERVER_PORT = 5959;
@@ -53,6 +59,7 @@ export class LiveFeed extends Construct {
       sg: predefinedSg,
       autoStart = true,
       sourceIngestPort = 5000,
+      secretParams,
     } = props;
 
     // Throw exception if vpcConfig is not specified when the source type is VPC-SOURCE
@@ -111,40 +118,47 @@ export class LiveFeed extends Construct {
       this.ndiDiscoveryServer = instance;
     }
 
-    // Create a secret
-    const randomstring = Math.random().toString(36).slice(-8);
-    const sourcePassword = new asm.Secret(this, 'SourcePassword', {
-      secretName: `secret-${uuid}`,
-      generateSecretString: {
-        secretStringTemplate: JSON.stringify({ password: randomstring }),
-        generateStringKey: 'password',
-        excludePunctuation: true,
-      },
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-    });
+    let sourcePassword: asm.ISecret;
+    let role: iam.IRole;
+    if (secretParams) {
+      sourcePassword = secretParams.secret;
+      role = secretParams.role;
+    } else {
+      // Create a secret
+      const randomstring = Math.random().toString(36).slice(-8);
+      sourcePassword = new asm.Secret(this, 'SourcePassword', {
+        secretName: `secret-${uuid}`,
+        generateSecretString: {
+          secretStringTemplate: JSON.stringify({ password: randomstring }),
+          generateStringKey: 'password',
+          excludePunctuation: true,
+        },
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      });
 
-    // Create an IAM role for MediaConnect to access the VPC
-    const role = new iam.Role(this, 'MediaConnectRole', {
-      assumedBy: new iam.ServicePrincipal('mediaconnect.amazonaws.com'),
-      inlinePolicies: {
-        policy: new iam.PolicyDocument({
-          statements: [
-            new iam.PolicyStatement({
-              resources: [sourcePassword.secretArn],
-              actions: [
-                'secretsmanager:GetResourcePolicy',
-                'secretsmanager:GetSecretValue',
-                'secretsmanager:DescribeSecret',
-                'secretsmanager:ListSecretVersionIds',
-              ],
-            }),
-          ],
-        }),
-      },
-      managedPolicies: [
-        iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonVPCFullAccess'),
-      ],
-    });
+      // Create an IAM role for MediaConnect to access the VPC
+      role = new iam.Role(this, 'MediaConnectRole', {
+        assumedBy: new iam.ServicePrincipal('mediaconnect.amazonaws.com'),
+        inlinePolicies: {
+          policy: new iam.PolicyDocument({
+            statements: [
+              new iam.PolicyStatement({
+                resources: [sourcePassword.secretArn],
+                actions: [
+                  'secretsmanager:GetResourcePolicy',
+                  'secretsmanager:GetSecretValue',
+                  'secretsmanager:DescribeSecret',
+                  'secretsmanager:ListSecretVersionIds',
+                ],
+              }),
+            ],
+          }),
+        },
+        managedPolicies: [
+          iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonVPCFullAccess'),
+        ],
+      });
+    }
 
     // Create a MediaConnect flow
     const flow = new CfnFlow(this, 'MyCfnFlow', {
