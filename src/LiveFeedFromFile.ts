@@ -85,11 +85,6 @@ export class LiveFeedFromFile extends Construct {
     const vpc = predifinedVpc ?? (vpcConfig ? new ec2.Vpc(this, 'VPC', vpcConfig.props) : undefined);
     vpc && vpc.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
-    // Allocate an Elastic IP for the VPC interface
-    const eip = vpc ? new ec2.CfnEIP(this, 'EIP', {
-      domain: 'vpc', // Ensure the EIP is allocated in the VPC
-    }) : undefined;
-
     // Create a security group to allow push input
     const description = 'Allow Push input from MediaLive';
     const sg = vpc ? new ec2.SecurityGroup(this, 'SecurityGroup', {
@@ -235,7 +230,6 @@ export class LiveFeedFromFile extends Construct {
         height: encoderSpec.height,
       },
       vpc: source.type === 'VPC-SOURCE' && vpc ? {
-        publicAddressAllocationIds: [eip!.attrAllocationId],
         subnetIds: [vpc.privateSubnets[0].subnetId],
         securityGroupIds: [sg!.securityGroupId],
       } : undefined,
