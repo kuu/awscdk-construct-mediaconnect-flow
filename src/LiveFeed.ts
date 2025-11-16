@@ -6,18 +6,39 @@ import { CfnFlow } from 'aws-cdk-lib/aws-mediaconnect';
 import * as asm from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
 import {
-  LiveFeedProps,
-  SOURCE_INGEST_PORT,
-  DISCOVERY_SERVER_PORT,
-  VPC_INTERFACE_NAME,
   createNdiDiscoveryServer,
   startFlow,
 } from './util';
+
+export interface LiveFeedProps {
+  readonly source?: LiveSourceSpec; // Optional live source specification
+  readonly vpc?: ec2.IVpc; // Predifined VPC. If not provided, a new VPC will be created when the source type is VPC-SOURCE.
+  readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
+  readonly sg?: ec2.ISecurityGroup; // Optional security group for VPC source interface
+  readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
+  readonly sourceIngestPort?: number; // Source ingest port (default: 5000)
+}
+
+export interface LiveSourceSpec {
+  readonly protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
+  readonly type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
+}
+
+export interface VpcConfig {
+  readonly props: ec2.VpcProps;
+  readonly availabilityZone?: string;
+  readonly subnetId?: string;
+  readonly enableNDI?: boolean; // Settings for NDI output
+}
+
+export const DISCOVERY_SERVER_PORT = 5959;
+export const VPC_INTERFACE_NAME = 'vpcInterfaceName';
 
 export class LiveFeed extends Construct {
   public readonly flow: CfnFlow;
   public readonly vpc?: ec2.IVpc;
   public readonly ndiDiscoveryServer?: ec2.Instance;
+  protected readonly secret: asm.ISecret;
 
   constructor(scope: Construct, id: string, props: LiveFeedProps) {
     super(scope, id);
@@ -29,11 +50,13 @@ export class LiveFeed extends Construct {
       },
       vpc: predifinedVpc,
       vpcConfig,
+      sg: predefinedSg,
       autoStart = true,
+      sourceIngestPort = 5000,
     } = props;
 
     // Throw exception if vpcConfig is not specified when the source type is VPC-SOURCE
-    if (source.type === 'VPC-SOURCE' && !vpcConfig) {
+    if (source.type === 'VPC-SOURCE' && !predifinedVpc && !vpcConfig) {
       throw new Error('VpcConfig is required when source type is VPC-SOURCE');
     }
 
@@ -56,22 +79,22 @@ export class LiveFeed extends Construct {
 
     // Create a security group to allow push input
     const description = 'Allow Push input from MediaLive';
-    const sg = vpc ? new ec2.SecurityGroup(this, 'SecurityGroup', {
+    const sg = predefinedSg ?? (vpc ? new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc,
       description,
       allowAllOutbound: true,
-    }): undefined;
+    }): undefined);
     sg && sg.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
     sg && sg.addIngressRule(
       ec2.Peer.anyIpv4(),
-      ec2.Port.udp(SOURCE_INGEST_PORT),
+      ec2.Port.udp(sourceIngestPort),
       description,
     );
 
     // Create an NDI discovery server
     let ndiConfig: CfnFlow.NdiConfigProperty | undefined;
     if (vpc && vpcConfig?.enableNDI) {
-      const instance = createNdiDiscoveryServer(this, vpc);
+      const instance = createNdiDiscoveryServer(this, vpc, DISCOVERY_SERVER_PORT);
       ndiConfig = {
         ndiDiscoveryServers: [{
           discoveryServerAddress: instance.instancePrivateIp, // Use the private IP of the NDI Discovery Server
@@ -138,7 +161,6 @@ export class LiveFeed extends Construct {
           roleArn: role.roleArn,
           secretArn: sourcePassword.secretArn,
         },
-        // SOURCE_INGEST_PORT: `${SOURCE_INGEST_PORT}`,
         vpcInterfaceName: source.type === 'VPC-SOURCE' ? VPC_INTERFACE_NAME : undefined,
       },
       availabilityZone: vpcConfig?.availabilityZone ?? vpc?.availabilityZones[0],
@@ -162,5 +184,6 @@ export class LiveFeed extends Construct {
 
     this.flow = flow;
     this.vpc = vpc;
+    this.secret = sourcePassword;
   }
 }
