@@ -16,6 +16,7 @@ export interface EncoderSettings {
   readonly scanType?: 'PROGRESSIVE' | 'INTERLACED'; // The scan type.
   readonly width?: number; // The width of the video.
   readonly height?: number; // The height of the video.
+  readonly profile?: string; // The encoding profile.
 }
 
 export interface LiveFeedFromFileProps extends LiveFeedProps {
@@ -83,6 +84,7 @@ export class LiveFeedFromFile extends LiveFeed {
         scanType: encoderSpec.scanType,
         width: encoderSpec.width,
         height: encoderSpec.height,
+        profile: encoderSpec.profile,
       },
       vpc: source.type === 'VPC-SOURCE' && this.vpc ? {
         subnetIds: [vpcConfig?.subnetId ?? this.vpc.privateSubnets[0].subnetId],
