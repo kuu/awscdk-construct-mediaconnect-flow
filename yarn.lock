@@ -1422,10 +1422,10 @@ aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.204.0:
     table "^6.9.0"
     yaml "1.10.2"
 
-awscdk-construct-medialive-channel@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.12.tgz#a59626551178d4866867c955555647d4be69b8bc"
-  integrity sha512-Wply9zuYgzgE/cTd3eelCF6Ma9qkwFop6DQ8g7eqI1bVmpYBMNvHONHygdTI43ravHPIZORRhKOYhH5a4AmFvg==
+awscdk-construct-medialive-channel@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.14.tgz#ab1f5ab15a5234b28319a4b6f14833e3292abdaa"
+  integrity sha512-fW3514zSw6XYk5SKW8ANH6vngbC2q95wEJ6qCulRNtxLBANj7914yZvCXlMHKAzEihWYXfrlcCeWPupveESXeg==
   dependencies:
     aws-cdk-lib "^2.201.0"
     constructs "^10.4.2"
