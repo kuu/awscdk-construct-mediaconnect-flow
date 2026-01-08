@@ -314,6 +314,7 @@ const encoderSettings: EncoderSettings = { ... }
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.framerateNumerator">framerateNumerator</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.height">height</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.profile">profile</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.scanType">scanType</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.EncoderSettings.property.width">width</a></code> | <code>number</code> | *No description.* |
@@ -357,6 +358,16 @@ public readonly height: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `profile`<sup>Optional</sup> <a name="profile" id="awscdk-construct-mediaconnect-flow.EncoderSettings.property.profile"></a>
+
+```typescript
+public readonly profile: string;
+```
+
+- *Type:* string
 
 ---
 
