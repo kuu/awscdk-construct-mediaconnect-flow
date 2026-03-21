@@ -1419,13 +1419,13 @@ aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.244.0:
     table "^6.9.0"
     yaml "1.10.2"
 
-awscdk-construct-medialive-channel@^0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.16.tgz#b3514c98253edbeca1eae7d2ce77d1be8ecf93f3"
-  integrity sha512-3eJQEYsXQhOWjUGvxBTfwtQwB3hCWGaj5PGn4fpCOx5Fp2VF0d+epP0GN9Tl+JMR97hAQI62cYpfyNx1pQg/Ow==
+awscdk-construct-medialive-channel@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.18.tgz#a510d6215917999ae920045c530ff80c279523ea"
+  integrity sha512-zYYieK5NrorsGMQms1nptGYO1WYdOy+9s9a/XdX/YP58b9+HUaEZiytXUrOMlB63F4KIA6N0rIv9VpoXBYlaGw==
   dependencies:
     aws-cdk-lib "^2.201.0"
-    constructs "^10.4.2"
+    constructs "^10.5.1"
 
 babel-jest@30.3.0:
   version "30.3.0"
@@ -1783,7 +1783,7 @@ concat-stream@^2.0.0:
     readable-stream "^3.0.2"
     typedarray "^0.0.6"
 
-constructs@^10.0.0, constructs@^10.4.2:
+constructs@^10.0.0, constructs@^10.4.2, constructs@^10.5.1:
   version "10.5.1"
   resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.5.1.tgz#5b5809b4b42e49e41f88f06dea1b14837cad4694"
   integrity sha512-f/TfFXiS3G/yVIXDjOQn9oTlyu9Wo7Fxyjj7lb8r92iO81jR2uST+9MstxZTmDGx/CgIbxCXkFXgupnLTNxQZg==
