@@ -60,8 +60,8 @@
     "constructs": "^10.5.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.244.0",
-    "awscdk-construct-medialive-channel": "^0.0.18",
+    "aws-cdk-lib": "^2.233.0",
+    "awscdk-construct-medialive-channel": "^0.0.20",
     "constructs": "^10.5.1"
   },
   "keywords": [
