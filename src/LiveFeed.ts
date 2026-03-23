@@ -180,7 +180,7 @@ export class LiveFeed extends Construct {
         vpcInterfaceName: source.type === 'VPC-SOURCE' ? VPC_INTERFACE_NAME : undefined,
       },
       availabilityZone: vpcConfig?.availabilityZone ?? vpc?.availabilityZones[0],
-      flowSize: vpcConfig?.enableNDI ? 'LARGE' : 'MEDIUM',
+      flowSize: vpc ? (vpcConfig?.enableNDI ? 'LARGE' : 'MEDIUM') : undefined,
       ndiConfig,
       sourceMonitoringConfig: {
         thumbnailState: 'ENABLED',
@@ -191,7 +191,7 @@ export class LiveFeed extends Construct {
         roleArn: role!.roleArn,
         securityGroupIds: [sg!.securityGroupId],
         subnetId: vpcConfig?.subnetId ?? vpc.privateSubnets[0].subnetId,
-      }] : [],
+      }] : undefined,
     });
     flow.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
