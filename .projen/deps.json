@@ -95,6 +95,10 @@
       "type": "peer"
     },
     {
+      "name": "awscdk-construct-medialive-channel",
+      "type": "peer"
+    },
+    {
       "name": "constructs",
       "version": "^10.5.1",
       "type": "peer"
