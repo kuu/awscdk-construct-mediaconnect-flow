@@ -54,7 +54,7 @@ export class LiveFeedFromFile extends LiveFeed {
         id: 'SRT',
         srtSettings: [{
           url: `srt://${this.flow.attrSourceIngestIp}:${this.flow.attrSourceSourceIngestPort}`, // Use the MediaConnect Flow URL
-          encryptionPassphraseSecretArn: this.secret.secretArn,
+          encryptionPassphraseSecretArn: this.secret?.secretArn,
         }],
       }],
       channelClass: 'SINGLE_PIPELINE',
