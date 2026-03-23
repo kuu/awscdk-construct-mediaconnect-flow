@@ -499,6 +499,7 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.forceDisableEncryption">forceDisableEncryption</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.secretParams">secretParams</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
@@ -514,6 +515,16 @@ const liveFeedFromFileProps: LiveFeedFromFileProps = { ... }
 
 ```typescript
 public readonly autoStart: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `forceDisableEncryption`<sup>Optional</sup> <a name="forceDisableEncryption" id="awscdk-construct-mediaconnect-flow.LiveFeedFromFileProps.property.forceDisableEncryption"></a>
+
+```typescript
+public readonly forceDisableEncryption: boolean;
 ```
 
 - *Type:* boolean
@@ -615,6 +626,7 @@ const liveFeedProps: LiveFeedProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.forceDisableEncryption">forceDisableEncryption</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.secretParams">secretParams</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams">SecretParams</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.sg">sg</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveFeedProps.property.source">source</a></code> | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec">LiveSourceSpec</a></code> | *No description.* |
@@ -628,6 +640,16 @@ const liveFeedProps: LiveFeedProps = { ... }
 
 ```typescript
 public readonly autoStart: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `forceDisableEncryption`<sup>Optional</sup> <a name="forceDisableEncryption" id="awscdk-construct-mediaconnect-flow.LiveFeedProps.property.forceDisableEncryption"></a>
+
+```typescript
+public readonly forceDisableEncryption: boolean;
 ```
 
 - *Type:* boolean

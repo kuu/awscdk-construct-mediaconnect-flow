@@ -18,6 +18,7 @@ export interface LiveFeedProps {
   readonly autoStart?: boolean; // Whether to automatically start the MediaLive channel and MediaConnect flow
   readonly sourceIngestPort?: number; // Source ingest port (default: 5000)
   readonly secretParams?: SecretParams; // Optional secret parameters for accessing the source password
+  readonly forceDisableEncryption?: boolean; // Whether to disable encryption for the MediaConnect flow
 }
 
 export interface LiveSourceSpec {
@@ -44,7 +45,7 @@ export class LiveFeed extends Construct {
   public readonly flow: CfnFlow;
   public readonly vpc?: ec2.IVpc;
   public readonly ndiDiscoveryServer?: ec2.Instance;
-  protected readonly secret: asm.ISecret;
+  protected readonly secret?: asm.ISecret;
 
   constructor(scope: Construct, id: string, props: LiveFeedProps) {
     super(scope, id);
@@ -60,6 +61,7 @@ export class LiveFeed extends Construct {
       autoStart = true,
       sourceIngestPort = 5000,
       secretParams,
+      forceDisableEncryption = false,
     } = props;
 
     // Throw exception if vpcConfig is not specified when the source type is VPC-SOURCE
@@ -118,12 +120,12 @@ export class LiveFeed extends Construct {
       this.ndiDiscoveryServer = instance;
     }
 
-    let sourcePassword: asm.ISecret;
-    let role: iam.IRole;
+    let sourcePassword: asm.ISecret | undefined;
+    let role: iam.IRole | undefined;
     if (secretParams) {
       sourcePassword = secretParams.secret;
       role = secretParams.role;
-    } else {
+    } else if (!forceDisableEncryption) {
       // Create a secret
       const randomstring = Math.random().toString(36).slice(-8);
       sourcePassword = new asm.Secret(this, 'SourcePassword', {
@@ -170,10 +172,10 @@ export class LiveFeed extends Construct {
         // minLatency: 1000,
         // vpcInterfaceName: VPC_INTERFACE_NAME,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
-        decryption: {
+        decryption: forceDisableEncryption ? undefined : {
           // algorithm: 'aes128',
-          roleArn: role.roleArn,
-          secretArn: sourcePassword.secretArn,
+          roleArn: role!.roleArn,
+          secretArn: sourcePassword!.secretArn,
         },
         vpcInterfaceName: source.type === 'VPC-SOURCE' ? VPC_INTERFACE_NAME : undefined,
       },
@@ -186,7 +188,7 @@ export class LiveFeed extends Construct {
       },
       vpcInterfaces: vpc ? [{
         name: VPC_INTERFACE_NAME,
-        roleArn: role.roleArn,
+        roleArn: role!.roleArn,
         securityGroupIds: [sg!.securityGroupId],
         subnetId: vpcConfig?.subnetId ?? vpc.privateSubnets[0].subnetId,
       }] : [],

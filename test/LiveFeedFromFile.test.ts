@@ -328,3 +328,38 @@ test('VPC source + VPC output with NDI with file', () => {
   template.resourceCountIs('AWS::EC2::VPC', 1);
   template.resourceCountIs('AWS::EC2::Instance', 1);
 });
+
+test('Encryption test 1', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'STANDARD-SOURCE',
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::IAM::Role', 2);
+});
+
+test('Encryption test 2', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveFeed(stack, 'LiveFeed', {
+    source: {
+      protocol: 'SRT',
+      type: 'STANDARD-SOURCE',
+    },
+    forceDisableEncryption: true,
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs('AWS::MediaConnect::Flow', 1);
+  template.resourceCountIs('AWS::IAM::Role', 1);
+});
