@@ -15,7 +15,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   license: 'MIT',
   licensed: true,
-  deps: ['aws-cdk-lib', 'constructs', 'awscdk-construct-medialive-channel'],
+  deps: [
+    'aws-cdk-lib',
+    'constructs',
+    'awscdk-construct-medialive-channel',
+  ],
+  peerDeps: [
+    'awscdk-construct-medialive-channel',
+  ],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
