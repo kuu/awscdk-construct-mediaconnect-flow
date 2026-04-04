@@ -354,6 +354,7 @@ test('Encryption test 2', () => {
     source: {
       protocol: 'SRT',
       type: 'STANDARD-SOURCE',
+      minLatency: 1500,
     },
     forceDisableEncryption: true,
   });

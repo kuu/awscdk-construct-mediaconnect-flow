@@ -24,6 +24,7 @@ export interface LiveFeedProps {
 export interface LiveSourceSpec {
   readonly protocol: 'RTP' | 'RTP-FEC' | 'SRT'; // Protocol of the live source
   readonly type: 'STANDARD-SOURCE' | 'VPC-SOURCE'; // Type of the live source
+  readonly minLatency?: number; // Minimum latency in milliseconds (applicable for SRT)
 }
 
 export interface VpcConfig {
@@ -54,6 +55,7 @@ export class LiveFeed extends Construct {
       source = {
         protocol: 'SRT',
         type: 'STANDARD-SOURCE',
+        minLatency: 1000,
       },
       vpc: predifinedVpc,
       vpcConfig,
@@ -168,9 +170,7 @@ export class LiveFeed extends Construct {
       source: {
         name: `lcp-demo-source-${uuid}`,
         protocol,
-        // maxLatency: 2000,
-        // minLatency: 1000,
-        // vpcInterfaceName: VPC_INTERFACE_NAME,
+        minLatency: source.protocol === 'SRT' ? source.minLatency ?? 1000 : undefined,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
         decryption: forceDisableEncryption ? undefined : {
           // algorithm: 'aes128',
