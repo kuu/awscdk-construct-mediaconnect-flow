@@ -732,6 +732,7 @@ const liveSourceSpec: LiveSourceSpec = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec.property.protocol">protocol</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec.property.type">type</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.LiveSourceSpec.property.minLatency">minLatency</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -752,6 +753,16 @@ public readonly type: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `minLatency`<sup>Optional</sup> <a name="minLatency" id="awscdk-construct-mediaconnect-flow.LiveSourceSpec.property.minLatency"></a>
+
+```typescript
+public readonly minLatency: number;
+```
+
+- *Type:* number
 
 ---
 

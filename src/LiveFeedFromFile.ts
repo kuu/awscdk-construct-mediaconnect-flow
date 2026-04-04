@@ -42,6 +42,7 @@ export class LiveFeedFromFile extends LiveFeed {
       source = {
         protocol: 'SRT',
         type: 'STANDARD-SOURCE',
+        minLatency: 1000,
       },
       autoStart = true,
       vpcConfig,
