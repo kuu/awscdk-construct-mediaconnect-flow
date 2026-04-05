@@ -122,7 +122,7 @@ export function startFlow(scope: Construct, id: string, flowArn: string): Date {
         FlowArn: flowArn,
       },
       physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-      // ignoreErrorCodesMatching: '*',
+      ignoreErrorCodesMatching: '.*',
       outputPaths: ['FlowArn', 'Status'],
     },
     //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action

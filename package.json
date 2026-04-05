@@ -61,9 +61,9 @@
     "constructs": "^10.5.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.248.0",
+    "aws-cdk-lib": "^2.233.0",
     "awscdk-construct-medialive-channel": "^0.0.21",
-    "constructs": "^10.6.0"
+    "constructs": "^10.5.1"
   },
   "keywords": [
     "MediaConnect",
