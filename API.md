@@ -804,6 +804,7 @@ const secretParams: SecretParams = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
 | <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams.property.secret">secret</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | *No description.* |
+| <code><a href="#awscdk-construct-mediaconnect-flow.SecretParams.property.keyType">keyType</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -824,6 +825,16 @@ public readonly secret: ISecret;
 ```
 
 - *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+---
+
+##### `keyType`<sup>Optional</sup> <a name="keyType" id="awscdk-construct-mediaconnect-flow.SecretParams.property.keyType"></a>
+
+```typescript
+public readonly keyType: string;
+```
+
+- *Type:* string
 
 ---
 

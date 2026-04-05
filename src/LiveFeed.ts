@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as crypto from 'crypto';
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -38,6 +39,7 @@ export interface VpcConfig {
 export interface SecretParams {
   readonly secret: asm.ISecret;
   readonly role: iam.IRole;
+  readonly keyType?: 'static-key' | 'srt-password';
 }
 
 export const DISCOVERY_SERVER_PORT = 5959;
@@ -168,14 +170,15 @@ export class LiveFeed extends Construct {
 
     // Create a MediaConnect flow
     const flow = new CfnFlow(this, `${name}-Flow`, {
-      name: `lcp-demo-${name}`,
+      name,
       source: {
-        name: `lcp-demo-source-${name}`,
+        name: `${name}-source`,
         protocol,
         minLatency: source.protocol === 'SRT' ? source.minLatency ?? 1000 : undefined,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
         decryption: forceDisableEncryption ? undefined : {
-          // algorithm: 'aes128',
+          algorithm: secretParams?.keyType === 'srt-password' ? undefined : 'aes128',
+          keyType: secretParams?.keyType,
           roleArn: role!.roleArn,
           secretArn: sourcePassword!.secretArn,
         },
