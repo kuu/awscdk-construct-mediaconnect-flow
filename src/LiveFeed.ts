@@ -168,6 +168,18 @@ export class LiveFeed extends Construct {
       });
     }
 
+    // Make decryption settings
+    const decryption = forceDisableEncryption ? undefined : secretParams?.keyType === 'srt-password' ? {
+      keyType: secretParams?.keyType,
+      roleArn: role!.roleArn,
+      secretArn: sourcePassword!.secretArn,
+    } : {
+      algorithm: 'aes128',
+      keyType: secretParams?.keyType,
+      roleArn: role!.roleArn,
+      secretArn: sourcePassword!.secretArn,
+    };
+
     // Create a MediaConnect flow
     const flow = new CfnFlow(this, `${name}-Flow`, {
       name,
@@ -176,12 +188,15 @@ export class LiveFeed extends Construct {
         protocol,
         minLatency: source.protocol === 'SRT' ? source.minLatency ?? 1000 : undefined,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
+        decryption,
+        /*
         decryption: forceDisableEncryption ? undefined : {
           algorithm: secretParams?.keyType === 'srt-password' ? undefined : 'aes128',
           keyType: secretParams?.keyType,
           roleArn: role!.roleArn,
           secretArn: sourcePassword!.secretArn,
         },
+        */
         vpcInterfaceName: source.type === 'VPC-SOURCE' ? VPC_INTERFACE_NAME : undefined,
       },
       availabilityZone: vpcConfig?.availabilityZone ?? vpc?.availabilityZones[0],
