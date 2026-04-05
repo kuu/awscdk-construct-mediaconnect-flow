@@ -11,6 +11,7 @@ import {
 } from './util';
 
 export interface LiveFeedProps {
+  readonly name?: string; // Name of the live feed, used as prefix for all created resources
   readonly source?: LiveSourceSpec; // Optional live source specification
   readonly vpc?: ec2.IVpc; // Predifined VPC. If not provided, a new VPC will be created when the source type is VPC-SOURCE.
   readonly vpcConfig?: VpcConfig; // Settings for VPC. Required when the source type is VPC-SOURCE and/or VPC outputs will be added to this flow.
@@ -52,6 +53,7 @@ export class LiveFeed extends Construct {
     super(scope, id);
 
     const {
+      name = `${crypto.randomUUID()}`,
       source = {
         protocol: 'SRT',
         type: 'STANDARD-SOURCE',
@@ -71,7 +73,6 @@ export class LiveFeed extends Construct {
       throw new Error('VpcConfig is required when source type is VPC-SOURCE');
     }
 
-    const uuid = `${crypto.randomUUID()}`;
     const protocol = (() => {
       switch (source.protocol) {
         case 'RTP':
@@ -85,12 +86,13 @@ export class LiveFeed extends Construct {
     })();
 
     // Create a VPC
-    const vpc = predifinedVpc ?? (vpcConfig ? new ec2.Vpc(this, 'VPC', vpcConfig.props) : undefined);
+    const vpc = predifinedVpc ?? (vpcConfig ? new ec2.Vpc(this, `${name}-VPC`, vpcConfig.props) : undefined);
     vpc && vpc.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
     // Create a security group to allow push input
     const description = 'Allow Push input from MediaLive';
-    const sg = predefinedSg ?? (vpc ? new ec2.SecurityGroup(this, 'SecurityGroup', {
+    const sg = predefinedSg ?? (vpc ? new ec2.SecurityGroup(this, `${name}-SecurityGroup`, {
+
       vpc,
       description,
       allowAllOutbound: true,
@@ -130,8 +132,8 @@ export class LiveFeed extends Construct {
     } else if (!forceDisableEncryption) {
       // Create a secret
       const randomstring = Math.random().toString(36).slice(-8);
-      sourcePassword = new asm.Secret(this, 'SourcePassword', {
-        secretName: `secret-${uuid}`,
+      sourcePassword = new asm.Secret(this, `${name}-Secret`, {
+        secretName: `secret-${name}`,
         generateSecretString: {
           secretStringTemplate: JSON.stringify({ password: randomstring }),
           generateStringKey: 'password',
@@ -141,7 +143,7 @@ export class LiveFeed extends Construct {
       });
 
       // Create an IAM role for MediaConnect to access the VPC
-      role = new iam.Role(this, 'MediaConnectRole', {
+      role = new iam.Role(this, `${name}-Role`, {
         assumedBy: new iam.ServicePrincipal('mediaconnect.amazonaws.com'),
         inlinePolicies: {
           policy: new iam.PolicyDocument({
@@ -165,10 +167,10 @@ export class LiveFeed extends Construct {
     }
 
     // Create a MediaConnect flow
-    const flow = new CfnFlow(this, 'MyCfnFlow', {
-      name: `lcp-demo-${uuid}`,
+    const flow = new CfnFlow(this, `${name}-Flow`, {
+      name: `lcp-demo-${name}`,
       source: {
-        name: `lcp-demo-source-${uuid}`,
+        name: `lcp-demo-source-${name}`,
         protocol,
         minLatency: source.protocol === 'SRT' ? source.minLatency ?? 1000 : undefined,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
@@ -196,7 +198,7 @@ export class LiveFeed extends Construct {
     flow.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
     // Start the MediaConnect Flow
-    autoStart && startFlow(this, 'StartMediaConnectFlow', flow.attrFlowArn);
+    autoStart && startFlow(this, `${name}-StartFlow`, flow.attrFlowArn);
 
     this.flow = flow;
     this.vpc = vpc;
