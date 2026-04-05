@@ -168,6 +168,12 @@ export class LiveFeed extends Construct {
       });
     }
 
+    // SRT only supports 'srt-password' as the key type
+    let { keyType } = secretParams ?? {};
+    if (source.protocol === 'SRT') {
+      keyType = 'srt-password';
+    }
+
     // Create a MediaConnect flow
     const flow = new CfnFlow(this, `${name}-Flow`, {
       name,
@@ -177,8 +183,8 @@ export class LiveFeed extends Construct {
         minLatency: source.protocol === 'SRT' ? source.minLatency ?? 1000 : undefined,
         whitelistCidr: source.type === 'STANDARD-SOURCE' ? '0.0.0.0/0' : undefined,
         decryption: forceDisableEncryption ? undefined : {
-          algorithm: secretParams?.keyType === 'srt-password' ? undefined : 'aes128',
-          keyType: secretParams?.keyType,
+          algorithm: keyType === 'srt-password' ? undefined : 'aes128',
+          keyType,
           roleArn: role!.roleArn,
           secretArn: sourcePassword!.secretArn,
         },
